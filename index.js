@@ -134,6 +134,9 @@ function toRunCommand (inspectObj, name) {
   if (cfg.ExposedPorts && isCompatible('--expose', modes)) {
     rc = appendObjectKeys(rc, '--expose', cfg.ExposedPorts)
   }
+  if (cfg.Labels && isCompatible('--label', modes)) {
+    rc = appendObjectKeys(rc, '--label', cfg.Labels)
+  }
   rc = appendArray(rc, '-e', cfg.Env, quote)
   rc = appendConfigBooleans(rc, cfg)
   if (cfg.Entrypoint) rc = appendJoinedArray(rc, '--entrypoint', cfg.Entrypoint, ' ')
