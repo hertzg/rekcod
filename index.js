@@ -238,10 +238,14 @@ function appendObjectEntries(str, key, obj, joiner) {
       { key: k, val: v },
       typeof joiner === "function"
         ? joiner
-        : (agg) => `"${`${agg.key}${joiner}${agg.val}`.replace('"', '\\"')}"`
+        : (agg) => `${quoteString(agg.key)}${joiner}${quoteString(agg.value)}`
     );
   });
   return newStr;
+}
+
+function quoteString(str, symbol = '"', escape = "\\") {
+  return `${symbol}${str.replace(symbol, `${escape}${symbol}`)}${symbol}`;
 }
 
 function appendArray (str, key, array, transformer) {
