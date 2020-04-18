@@ -238,7 +238,7 @@ function appendObjectEntries(str, key, obj, joiner) {
       { key: k, val: v },
       typeof joiner === "function"
         ? joiner
-        : (agg) => `"${`${agg.key}${joiner}${agg.val}`.replace('"', '"')}"`
+        : (agg) => `"${`${agg.key}${joiner}${agg.val}`.replace('"', '\\"')}"`
     );
   });
   return newStr;
