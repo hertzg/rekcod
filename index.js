@@ -135,7 +135,7 @@ function toRunCommand (inspectObj, name) {
     rc = appendObjectKeys(rc, '--expose', cfg.ExposedPorts)
   }
   if (cfg.Labels && isCompatible('--label', modes)) {
-    rc = appendObjectKeys(rc, '--label', cfg.Labels)
+    rc = appendObjectEntries(rc, '--label', cfg.Labels, '=')
   }
   rc = appendArray(rc, '-e', cfg.Env, quote)
   rc = appendConfigBooleans(rc, cfg)
@@ -227,6 +227,23 @@ function appendObjectKeys (str, key, obj, transformer) {
     })
   })
   return newStr
+}
+
+function appendObjectEntries(str, key, obj, joiner) {
+  let newStr = str;
+  Array.from(Object.entries(obj)).forEach(([k, v]) => {
+    newStr = append(
+      newStr,
+      key,
+      { key: k, val: v },
+      typeof joiner === "function"
+        ? joiner
+        : (agg) => {
+            return `${agg.key}${joiner}${agg.value}`;
+          }
+    );
+  });
+  return newStr;
 }
 
 function appendArray (str, key, array, transformer) {
