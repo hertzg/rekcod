@@ -239,7 +239,7 @@ function appendObjectEntries(str, key, obj, joiner) {
       typeof joiner === "function"
         ? joiner
         : (agg) => {
-            return `${agg.key}${joiner}${agg.value}`;
+            return `${agg.key}${joiner}${agg.val}`;
           }
     );
   });
