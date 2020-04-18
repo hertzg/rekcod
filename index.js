@@ -238,7 +238,7 @@ function appendObjectEntries(str, key, obj, joiner) {
       { key: k, val: v },
       typeof joiner === "function"
         ? joiner
-        : (agg) => `${quote(agg.key)}${joiner}${quote(agg.value)}`
+        : (agg) => `${quote(agg.key)}${joiner}${quote(agg.val)}`
     );
   });
   return newStr;
